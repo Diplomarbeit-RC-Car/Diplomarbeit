@@ -1,0 +1,181 @@
+% %! TEX root = ./main.tex
+\documentclass[
+   fontsize = 11pt,
+   twoside = true,
+   paper=a4,
+   open=right
+]{scrreprt}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{geometry}
+
+\usepackage{tabularx}
+
+\usepackage[ngerman]{babel}
+\usepackage{csquotes}
+\usepackage[
+  backend=biber,
+  style=numeric
+]{biblatex}
+
+\renewcommand*{\bibfont}{\normalfont}
+\addbibresource{zitate_websides.bib}
+
+\usepackage{graphicx}
+\geometry{
+   %papersize={210mm, 297mm},
+   includeheadfoot,
+   top = 20mm,
+   inner=30mm,  % größerer Bundsteg innen
+   outer=20mm,  % kleinerer Rand außen
+   headsep = \baselineskip,
+   footskip = \dimexpr2\baselineskip+3mm\relax,
+}
+\usepackage{scrlayer-scrpage}
+\usepackage{caption}
+
+\captionsetup{
+  justification=raggedright,
+  singlelinecheck=false
+}
+ 
+\clearpairofpagestyles
+ 
+\setkomafont{pageheadfoot}{\sffamily\footnotesize}
+\setkomafont{pagehead}{\bfseries}
+\setkomafont{pagination}{}
+
+\renewcommand{\familydefault}{\sfdefault}
+
+
+\KOMAoptions{
+   headsepline = true,
+   footsepline = true,
+   plainfootsepline = true,
+}
+
+
+\automark[chapter]{chapter}
+\ihead{\headmark}
+%\ohead{\authormark}
+\ofoot*{Seite~\pagemark}
+\ifoot{\authormark}
+
+\newpairofpagestyles{zusammenfassung_header_de}{
+    \KOMAoptions{headsepline=false,footsepline=false,plainfootsepline=false}
+   \fbox{
+      \begin{minipage}[c]{0.2\textwidth}   % LINKER BLOCK
+         \centering
+       \includegraphics[height=12mm]{logos/header_logo.png}
+      \end{minipage}
+      \begin{minipage}[c]{0.8\textwidth}   % RECHTER BLOCK
+        \centering
+        \textbf{HÖHERE TECHNISCHE BUNDESLEHR- UND VERSUCHSANSTALT ST. PÖLTEN}\\
+        \rule{\textwidth}{0.4pt}\\[2mm]
+        \textbf{Elektronik und Technische Informatik}\\
+        \textbf{Ausbildungsschwerpunkt: Embedded Systems}
+      \end{minipage}
+      }
+}
+\newpairofpagestyles{zusammenfassung_header_en}{
+    \KOMAoptions{headsepline=false,footsepline=false,plainfootsepline=false}
+   \fbox{
+      \begin{minipage}[c]{0.2\textwidth}   % LINKER BLOCK
+         \centering
+       \includegraphics[height=12mm]{logos/header_logo.png}
+      \end{minipage}
+      \begin{minipage}[c]{0.8\textwidth}   % RECHTER BLOCK
+        \centering
+        \textbf{TECHNICAL AND VOCATIONAL COLLEGE ST. PÖLTEN}\\
+        \rule{\textwidth}{0.4pt}\\[2mm]
+        \textbf{Department: Electronics and Technical Informatics}\\
+        \textbf{Educational focus: Embedded Systems / Wireless Systems}
+      \end{minipage}
+      }
+}
+
+
+\makeatletter
+\newcommand*{\authormark}{}
+\newcommand*{\markauthor}[1]{%
+   \renewcommand{\authormark}{#1}%
+   \ignorespaces
+}
+\newcommand*{\chapterauthor}[1]{%
+   \par\vspace{-\baselineskip}%
+   \textsf{von~#1}%
+   \markauthor{#1}%
+   \par\vspace{2\baselineskip}%
+   \@afterheading
+}
+\makeatother
+\usepackage{lipsum}
+
+\usepackage[ngerman]{babel}  % Inhalt statt contents
+\addto\captionsngerman{\renewcommand{\contentsname}{Inhalt}}
+
+\renewcommand{\arraystretch}{1.5}
+
+\begin{document}
+\pagenumbering{arabic} % arabische Zahlen, Seitenzahl startet neu
+\setcounter{page}{1}
+
+%neues Dokument Aufbau:
+%\chapter{}
+%\subsection{}
+% ...
+%Am ende des Dokuments \newpage
+
+
+\input{Kapitel/000_Titelseite}
+% \cleardoublepage
+% \thispagestyle{empty}
+\input{Kapitel/001_Eidesstattliche-Erklärung}
+\input{Kapitel/002_Diplomarbeit-Dokumentation}
+
+\tableofcontents
+\newpage
+
+
+% \ifodd\value{page}
+%   \textbf{Diese Seite ist rechts (ungerade).}
+% \else
+%   \textbf{Diese Seite ist links (gerade).}
+% \fi
+
+
+\chapter{Hardware}
+\chapterauthor{Michael Schier}
+\section{Firmware}
+
+
+
+\chapter{Optional: Bedienungsanleitung}
+\chapterauthor{Vorname,Nachname}
+
+\chapter{Abbildungsverzeichnis}
+
+\chapter{Quellverzeichnis}
+
+
+\chapter{Der erste Artikel}
+\chapterauthor{Vorname,Nachname}
+\section{Einleitung}
+\lipsum[1]
+\section{Hauptteil}
+\lipsum
+\section{Fazit}
+\lipsum[5-7]
+ 
+\chapter{Noch ein Artikel}
+\chapterauthor{Vorname,Nachname}
+\lipsum[2]
+\section{Hinführung zum Thema}
+\lipsum[3-5]
+\section{Lösung des Problems}
+\lipsum
+\section{Folgerung}
+\lipsum[1-3]
+\lipsum
+\end{document}

@@ -1,0 +1,3 @@
+[submodule "Datasheet-Quellen"]
+	path = Datasheet-Quellen
+	url = git@github.com:Diplomarbeit-RC-Car/Datasheet-Quellen.git
