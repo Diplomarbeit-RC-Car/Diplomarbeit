@@ -18,12 +18,15 @@
   backend=biber,
   style=numeric
 ]{biblatex}
+\usepackage{siunitx}
+\usepackage{textcomp} % für \degree
 
 \renewcommand*{\bibfont}{\normalfont}
 \addbibresource{Datasheet-Quellen/Buecher/buecher.bib}
 \addbibresource{Datasheet-Quellen/Datenblaetter/datenblaetter.bib}
 \addbibresource{Datasheet-Quellen/Source-Code/sourcecode.bib}
 \addbibresource{Datasheet-Quellen/Webseiten/webseiten.bib}
+\addbibresource{Datasheet-Quellen/Bilder/bilder.bib}
 
 \usepackage{graphicx}
 \geometry{
@@ -148,6 +151,7 @@
 % \fi
 
 \include{Kapitel/Matthias/010_MCU_Wahl}
+\include{Kapitel/Matthias/020_IMU}
 
 \printbibliography
 
