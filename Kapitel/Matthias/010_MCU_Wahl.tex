@@ -1,9 +1,22 @@
 \chapter{Wahl des Microcontrollers}
 \chapterauthor{Matthias Greil}
 
-Für den Microcontrollers wurde der STM32G474\cite{stm32g474} von STMicorelectronics gewhält. Es wurde ein Microcontrollers von STMicorelectronics gewählt, da es für diese ein großes Entwicklungs-Ecosystem gibt und durch den Umfangreichen Hardware Hastraction Layer (HAL) wie auch Entwicklungsumgebungen (STM32CubeIDE), die Entwicklung erleichtert und beschleunigt. 
-Die Wahl des Microcontrollers wurde nach folgender wahl getroffen: Es wurde ein Leistungsstarke Microcontroller Unit (MCU) gesucht, die ausreichend Perepherie hat. Da die Benötigte Rechenleistung schwer abzuschätzen ist, wurde sich an dem Wombat\cite{wombat} orientiert, einem Roboter Controller der in Botball\cite{botball} verwendet wird. Dieser Basiert auf einem Raspberry Pi 3 und einem STM32F472\cite{stm32f427} als Koprozessor. Unsere Microcontroller Wahl wurde auf den Anforderungen des Coprozessor basiert. 
-Die Leistung des STM32F472 mit einem ARM Cortex M4 Prozessor Architektur ausreichend, er besitzt 1024 kBytes an Flash und 192 kBytes an Ram. In dem Raccoon OS (REF needed) ist die tatsächlihce Flash und Ram nutzung je 10\% und 6\%. \\
+Für den Mikrocontrollers wurde der STM32G474\cite{stm32g474} von
+STMicorelectronics gewählt. Es wurde ein Mikrocontrollers von STMicorelectronics
+gewählt, da es für diese ein großes Entwicklungs-Ecosystem gibt und durch den
+Umfangreichen Hardware Abstraction Layer (HAL) wie auch Entwicklungsumgebungen (STM32CubeIDE), die Entwicklung erleichtert und beschleunigt. 
+Die Wahl des Mikrocontrollers wurde nach folgender Wahl getroffen: Es wurde ein Leistungsstarke Mikrocontroller Unit (MCU) gesucht, die ausreichend Peripherie hat. Da die Benötigte Rechenleistung schwer abzuschätzen ist, wurde sich an dem Wombat\cite{wombat} orientiert, einem Roboter Controller der in Botball\cite{botball} verwendet wird. Dieser Basiert auf einem Raspberry Pi 3 und einem STM32F472\cite{stm32f427} als Koprozessor. Unsere Mikrocontroller Wahl wurde auf den Anforderungen des Coprozessor basiert. 
+Die Leistung des STM32F472 mit einem ARM Cortex M4 Prozessor Architektur
+ausreichend, er besitzt 1024 kBytes an Flash und 192 kBytes an Ram. In dem
+Raccoon OS (REF needed) ist die tatsächliche Flash und Ram Nutzung je 10\% und 6\%. \\
 
-Auf dieser Grundlage wurde der STM32G474 gewählt, er hat auch einen Cortex M4 Prozessor, ist aber eine neuere MCU von STMicorelectronics. Er kann maximal 512 kBytes Flash, wobei die Variante mit 256 Kbytes gewählt wurde. Doppelt so viel wie der Wombat-Koprozessor (~100kBytes), um einen Puffer für die Programmgröße zu haben. Der fix verbaute Ram (128kBytes) ist auch ausreichend im Vergleichsobjekt. Neben der Perepherie, verbaut ist, ist der Preis im vergleich zu dem STM32F472 halb so hoch. Daher wurde spezifisch der STM32G474MCT (80 Pins, 256 kBytes Flash, T für das LQFP Package). 
+Auf dieser Grundlage wurde der STM32G474 gewählt, er hat auch einen Cortex M4
+Prozessor, ist aber eine neuere MCU von STMicorelectronics. Er kann maximal
+512kBytes Flash, wobei die Variante mit 256kBytes gewählt wurde. Doppelt so viel
+wie der Wombat-Koprozessor (~100kBytes), um einen Puffer für die Programmgröße
+zu haben. Der fix verbaute Ram (128kBytes) ist auch ausreichend im
+Vergleichsobjekt. Neben der Peripherie, verbaut ist, ist der Preis im Vergleich
+zu dem STM32F472 halb so hoch. Daher wurde spezifisch der STM32G474MCT (80 Pins,
+256 kBytes Flash, T für das LQFP Package). 
+%TODO checken ob die spezelle STM modell wirklich benutzt wurde
 \\ 

@@ -1,7 +1,15 @@
-\section{Grundlagenn der orientierungs Bestimmung} \label{Orientierung}
+\section{Grundlagen der Orientierungs Bestimmung} \label{Orientierung}
 
-Die Orientierung eines Systems kann mit einer sogenannten Inertial Measurement Unit (IMU) gemessen werden. So eine IMU besteht tüpischerweise aus zwei/drei Sensoren: Gyroskop, Accelerometer und Magnetometer (optional). Jeder dieser Sensoren hat in der Anwendung Stärken wie auch Schwächen, deswegen werden sie Kombieniert umd die Orientierung mit wenig bis keinem Fehler bestimmen zu können. \\
-Man spricht dabei über Sensor Fusion. Es handelt sich nicht um eine Mehtode sondern einen Überbegiff für verschiedene Algorithmen, wobei manche Simpler und weniger Leistungsintensiv im vergleich zu den anderen sind (Complimentär Filter) sind. Andere wie Madgwick, Mahony oder ein Kalman Filter, die implementierung und umsetzun komplizierter, aber dafür meist bessere ergebnise erziehlen können.
+Die Orientierung eines Systems kann mit einer sogenannten Inertial Measurement
+Unit (IMU) gemessen werden. So eine IMU besteht typischerweise aus zwei/drei
+Sensoren: Gyroskop, Accelerometer und Magnetometer (optional). Jeder dieser
+Sensoren hat in der Anwendung Stärken wie auch Schwächen, deswegen werden sie
+kombiniert um die Orientierung mit wenig bis keinem Fehler bestimmen zu können. \\
+Man spricht dabei über Sensor Fusion. Es handelt sich nicht um eine Methode
+sondern einen Überbegriff für verschiedene Algorithmen, wobei manche Simpler und
+weniger leistungsintensiv im Vergleich zu den anderen sind (Komplementär Filter)
+sind. Andere wie Madgwick, Mahony oder ein Kalman Filter, die Implementierung
+und Umsetzung komplizierter, aber dafür meist bessere Ergebnisse erzielen können.
 
 \subsubsection{Euler Winkel}
 Euler Winkel sind eine Art eine Orientation in drei Dimensionalen Raum darzustellen\cite{EulerAngles}. Dabei wird die Rotation mit drei Achsen dargestellt. Diese Achsen werden in Schritten auf ein Modell angewendet. Rotation wird mit Winkeln $( \phi \, \theta \, \psi)$ dargestellt. Oft wird statt den Winkeln auch die namen Roll ($\psi$),Pich ($\theta$) und Yaw ($\phi$) benutzt. 
@@ -11,33 +19,53 @@ Euler Winkel sind eine Art eine Orientation in drei Dimensionalen Raum darzustel
     \caption{Anwendung von Euler Winkel Visualisiert \cite{eulerAnglesBild}}
 \end{figure}
 
-\subsection{Physiche Limitierungen von Sensoren}
-In einem Idealen Szenario, gäbe es einen Sensor, der uns direkt seine Orientierung in allen drei Axen messen und ausgeben würde. Dies auch in einem Hochfrequenten Updaterate. In realität gibt es so einen Sensor nicht. Deswegen konbiniert man die Stärken von verschiedenen Sensorarten um die Ausrichtung eines Systems zu abzuschätzen.
+\subsection{Eigenschaften der verschiedenen Sensortypen}
+In einem Idealen Szenario, gäbe es einen Sensor, der uns direkt seine
+Orientierung in allen drei Achsen messen und ausgeben würde. Dies auch in einem Hochfrequenten Updaterate. In Realität gibt es so einen Sensor nicht. Deswegen kombiniert man die Stärken von verschiedenen Sensorarten um die Ausrichtung eines Systems zu abzuschätzen.
 
 \subsubsection{Gyroskop}
-Ein sogenanntes Gyroscop misst die Winkelgeschwindigkeit (Veränderung der Orientierung) in allen drei Axen. Darus ist es möglich eine Relative Orientierung zu bestimmen, indem man die Messwerte integriet. Problem dabei ist, das der reale Sensor-Output einen Bias/Offset hat und ein Rauschen mitgemessen wird.\\
-\textbf{Bias/Offset} ist ein konstanter Werte der bei jeder Messung mitgemessen wird. Der Bias variert vom einem Bauteil zum Nächsten, wie auch zwischen den Achsen. Jedoch ist es auch abhängig von der Temperatur des Sensors. Der Bias in den Messwerten ist beim Integriern ein Statischer Error und führt dazu das die berechnete Relative Orientation von der Wahren abdriftet.
+Ein sogenanntes Gyroskop misst die Winkelgeschwindigkeit (Veränderung der
+Orientierung) in allen drei Achsen. Daraus ist es möglich eine Relative
+Orientierung zu bestimmen, indem man die Messwerte integriert. Problem dabei ist, das der reale Sensor-Output einen Bias/Offset hat und ein Rauschen mitgemessen wird.\\
+\textbf{Bias/Offset} ist ein konstanter Werte der bei jeder Messung mitgemessen wird. Der Bias variiert vom einem Bauteil zum Nächsten, wie auch zwischen den Achsen. Jedoch ist es auch abhängig von der Temperatur des Sensors. Der Bias in den Messwerten ist beim Integrieren ein Statischer Error und führt dazu das die berechnete Relative Orientation von der Wahren abdriftet.
 Im Stillstand kann der Bias durch Mitteln von Messwerten bestimmt werden. Dieser Bias muss dann von jedem Messwert subtrahiert werden. 
 
 \subsubsection{Accelerometer}
-Ein sogenanntes Accelerometer misst die Beschleunigung eines Systems. In diesem Fall wird es hauptsächlich dafür genutzt die Erdgravitation zu messen, oder genauer gesagt einen Gravitationsvektor. Dieser Vektor wird dafür um ein absolutes Roll und Pitch des Sensros zu bestimmen. 
+Ein sogenanntes Accelerometer misst die Beschleunigung eines Systems. In diesem
+Fall wird es hauptsächlich dafür genutzt die Erdgravitation zu messen, oder
+genauer gesagt einen Gravitationsvektor. Dieser Vektor wird dafür um ein
+absolutes Roll und Pitch des Sensors zu bestimmen. 
 
 \subsubsection{Magnetometer} \label{magneto}
-Ein Magnetometer oder auch manchmal eCompass genannt, misst die Stärk des Magnetfelder in den X-,Y- und Z-Achesn. Es wird dafür benutzt ein absoultes Yaw-Wert über das Erdmagnetfeldes errechnen zu können. Nachteile dafür sind, das Magnetometer typischerweise eine geringere Updaterate im vergleich zu Gyroskop und Accelerometer haben (typ nutzung 20 - 50Hz). Ein anderer Nachteil ist, dass ein Magnetometer nicht nur das Erdmagnetfeld misst, die Messwerte werden auch von allen ferromagnetischen Metallen, wie auch Magnetfeldern beeinflusst. Das Paper \textit{\grqq Calibration of Strapdown Magnetometers in the
-Magnetic Field Domain\grqq} \cite[Sec.~2]{magCalThearie} beschreibt unteranderem die folgenden Einflüsse auf die Messwerte:
+Ein Magnetometer oder auch manchmal eCompass genannt, misst die Stärke des
+Magnetfelder in den X-,Y- und Z-Achsen. Es wird dafür benutzt ein absolutes
+Yaw-Wert über das Erdmagnetfeldes errechnen zu können. Nachteile dafür sind, das
+Magnetometer typischerweise eine geringere Updaterate im Vergleich zu Gyroskop
+und Accelerometer haben (typ. 20 - 50Hz). Ein anderer Nachteil ist, dass ein Magnetometer nicht nur das Erdmagnetfeld misst, die Messwerte werden auch von allen ferromagnetischen Metallen, wie auch Magnetfeldern beeinflusst. Das Paper \textit{\grqq Calibration of Strapdown Magnetometers in the
+Magnetic Field Domain\grqq} \cite[Sec.~2]{magCalThearie} beschreibt unter anderem die folgenden Einflüsse auf die Messwerte:
 \begin{itemize}
-    \item \textbf{Hardiron-Offset} beschreibt die Konstante Verzerrung des gemessenen. Dieser wird von feromagnetischen Metallen auf dem Fahrzeug verursacht.
-    \item \textbf{Softiron-Offset} wird durch sogenannte \grqq soft iron\grqq Materialien verursacht. Diese Materialen verzerren die externen/zu messenden Magnetfelder (Erdmagnetfled) in Abhängigkeit zu sich selbst. Sind daher Orientierungsabhängig und nicht Konstant.
+    \item \textbf{Hardiron-Offset} beschreibt die Konstante Verzerrung des
+        gemessenen. Dieser wird von ferromagnetischen Metallen auf dem Fahrzeug verursacht.
+    \item \textbf{Softiron-Offset} wird durch sogenannte \grqq soft iron\grqq
+        Materialien verursacht. Diese Materialien verzerren die externen/zu
+        messenden Magnetfelder (Erdmagnetfeld) in Abhängigkeit zu sich selbst. Sind daher Orientierungsabhängig und nicht Konstant.
 \end{itemize}
-Diese Fehler können aus den Messwerten calibriert werden. Sind aber Umgebungsabhängig. Für die Anwendung in einem Fahrzeug bedeutet es, dass jedes mal neu calibiert werden muss, sobald sich der Aubau des Fahrzeuges verändert (Position des Magnetometer oder Struktureller Aubau des Fahrzeuges).
+Diese Fehler können aus den Messwerten kalibriert werden. Sind aber
+Umgebungsabhängig. Für die Anwendung in einem Fahrzeug bedeutet es, dass jedes
+mal neu kalibriert werden muss, sobald sich der Aufbau des Fahrzeuges verändert
+(Position des Magnetometer oder Struktureller Aufbau des Fahrzeuges).
 
 \subsection{Sensor Fusion}
-Der Begriff Sensor Fusion beschreibt die Kombination von verschiedenen Arten von Sensoren. Dabei macht man sich die verschiedenen Stärken zu nutzen. Dabei wird das Gyroskop für das Erfassen von schnellen Änderungen genutzt. Das Accelerometer und Magnetometer hingegen werden typischerweise Tiefpassgefiltered und als absolute Refernez genutzt. Dabei gibt es nicht nur eine Art die Sensordaten zu kombinieren. Wie schon am Anfang von Kapitel \ref{Orientierung}. Dabei unterscheidet man zwischen 6 Achsen und 9 Achsen Fusion, dies beschreibt nur wie viele seperate Sensoren bei der Fusion benutzt wurden.
+Der Begriff Sensor Fusion beschreibt die Kombination von verschiedenen Arten von Sensoren. Dabei macht man sich die verschiedenen Stärken zu nutzen. Dabei wird das Gyroskop für das Erfassen von schnellen Änderungen genutzt. Das Accelerometer und Magnetometer hingegen werden typischerweise tiefpassgefiltert und als absolute Referenz genutzt. Dabei gibt es nicht nur eine Art die Sensordaten zu kombinieren. Wie schon am Anfang von Kapitel \ref{Orientierung}. Dabei unterscheidet man zwischen 6 Achsen und 9 Achsen Fusion, dies beschreibt nur wie viele separate Sensoren bei der Fusion benutzt wurden.
 \begin{itemize}
     \item \textbf{6 Achsen Fusion}: Dabei werden nur Gyroskop und Accelerometer benutzt. Also 2 mal 3 Achsen. Dabei macht man sich wie schon zu vor erwähnt die Eigenschaften des Gyroskops zu nutzen für schnelle Bewegungen. Das Accelerometer wird dafür genutzt den Gravitationsvektor zu messen und so ein absoluten Roll- und Pitch-Wert zu haben. Wobei Yaw allein von dem Integrierten Gyroskopwert abhängt. Was ein Nachteil ist, wenn man eine konstante Heading benötigt.
     \item Bei der \textbf{9 Achsen Fusion} wird neben Gyroskop und Accelerometer auch das Magnetometer genutzt um ein konstantes Yaw-Wert errechnen zu können. Wie schon in Kapitel \ref{magneto} beschrieben muss dafür das Magnetometer kalibriert werden. Viele Systeme Fallen auf 6 Achsen Fusion zurück, falls das Magnetometer keine nützlichen Werte liefert. 
 \end{itemize}
 
 \subsubsection{Verwendete Sensor Fusion Algorithmus}
-Um die Komplexität des verwendeten Fiters gering zu halten, wurde die MotionFX Libary von St Microelectronics \cite{st_motionFX} genugzt. Diese Laut der Dokumentation einen Kalman Filter intern, aber ist für den nutzer eine Black Box. Da wir schon mit St's Entwicklungsumgebung arbeiten, war es die einfachste möglichkeit Sensor Fusion zu implementieren. Wie in Kapitel \ref{imuWahl} genauer erkärt, wurde für das Smart Drive X4 speziell auf eine gute 6 Achsen Fusion Wert gelegt. Diese wurde dann direkt mit dem SFLP-Core des LSM6DSV16X berechnet.Dies ist die Fallback Fusion falls das Magnetometer keine nützlichen Daten liefert. Im regelfall wurde die MotionFX dafür genutzt, im 9 Achsen Fusion Modus.\\
+Um die Implementierungskomplexität des Fusion Algorithmus gering zu halten,
+wurde die MotionFX Library von St Microelectronics \cite{st_motionFX} genutzt.
+Diese Laut der Dokumentation einen Kalman Filter intern, aber ist für den nutzer
+eine Black Box. Da die Firmware in der Entwicklungsumgebung von
+STMicroelectronics entwickelt wird, war es die einfachste Möglichkeit Sensor Fusion zu implementieren. Wie in Kapitel \ref{imuWahl} genauer erklärt, wurde für das Smart Drive X4 speziell auf eine gute 6 Achsen Fusion Wert gelegt. Diese wurde dann direkt mit dem SFLP-Core des LSM6DSV16X berechnet.Dies ist die Fallback Fusion falls das Magnetometer keine nützlichen Daten liefert. Im regelfall wurde die MotionFX dafür genutzt, im 9 Achsen Fusion Modus.\\
 \newpage
