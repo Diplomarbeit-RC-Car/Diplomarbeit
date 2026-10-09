@@ -1,0 +1,14 @@
+\chapter{Fernsteuerungsschnittstelle}
+\chapterauthor{Matthias Greil}
+Die Steuerung von Smart Drive ist über eine UART-Schnittstelle vorgesehen. Die
+ermöglicht alle Typischen RC-Controller Schnittstellen, wie S-Bus, I-Bus, CRSF
+wie auch weiter oder Eigene Lösungen zu verwenden. Da bei den Test der
+\textit{T8L-Radio-Controller (M2)} \cite{t8l_controller} und der \textit{XR1 Nano Multi-Frequency ExpressLRS
+Receiver} \cite{XR1_reciver} von Radiomaster genutzt wurden, wurde das CRSF-Protokoll implementiert. Jegliche anderen Protokolle wurden nicht implementiert. 
+
+%TODO: Blockschaltbild wie steuerung aufgebaut ist: vernsteuerung ))) reciver ->
+%CRSF an UART Port am MCU
+
+\input{Kapitel/Matthias/Fernsteuerung/verwendete_fernsteuerung.tex}
+\input{Kapitel/Matthias/Fernsteuerung/CRSF-Protokoll.tex}
+\input{Kapitel/Matthias/Fernsteuerung/firmware.tex}
